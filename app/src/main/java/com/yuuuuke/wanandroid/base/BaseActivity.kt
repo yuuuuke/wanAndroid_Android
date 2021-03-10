@@ -5,6 +5,7 @@ import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
 import androidx.fragment.app.FragmentActivity
 import androidx.lifecycle.Observer
+import com.yuuuuke.wanandroid.BR
 
 /**
  * description:Activity基类
@@ -21,6 +22,8 @@ abstract class BaseActivity<V : BaseViewModel, K : ViewDataBinding> : FragmentAc
         super.onCreate(savedInstanceState)
         vb = DataBindingUtil.setContentView(this, getLayoutId())
         initViewModel()
+        vb.lifecycleOwner = this
+        vb.setVariable(BR.vm, vm)
         createCommonUiStateObserver()
     }
 
@@ -40,7 +43,7 @@ abstract class BaseActivity<V : BaseViewModel, K : ViewDataBinding> : FragmentAc
         })
     }
 
-    open fun showCommonDialog(state:Boolean) {
+    open fun showCommonDialog(state: Boolean) {
 
     }
 
