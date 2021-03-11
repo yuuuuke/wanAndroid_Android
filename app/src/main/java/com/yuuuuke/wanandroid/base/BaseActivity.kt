@@ -25,11 +25,21 @@ abstract class BaseActivity<V : BaseViewModel, K : ViewDataBinding> : FragmentAc
         vb.lifecycleOwner = this
         vb.setVariable(BR.vm, vm)
         createCommonUiStateObserver()
+        initView()
+        initData()
     }
 
     abstract fun getLayoutId(): Int
 
     abstract fun initViewModel()
+
+    open fun initView() {
+
+    }
+
+    open fun initData() {
+
+    }
 
     /**
      * 通用视图状态改变的观察者

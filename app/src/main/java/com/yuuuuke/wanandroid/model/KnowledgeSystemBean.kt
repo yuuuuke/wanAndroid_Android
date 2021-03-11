@@ -1,14 +1,12 @@
 package com.yuuuuke.wanandroid.model
 
-import java.io.Serializable
-
 /**
- * description:置顶文章
+ * description:知识体系
  *
  * @author zwp
- * @since 2021/3/10
+ * @since 2021/3/11
  */
-data class HotArticleBean(
+data class KnowledgeSystemBean(
     var courseId: Int,
     var id: Int,
     var name: String,
@@ -16,5 +14,5 @@ data class HotArticleBean(
     var parentChapterId: Int,
     var userControlSetTop: Boolean,
     var visible: Int,
-    var children: List<HotArticleBean>
-) : Serializable
+    var children: List<ArticleBean>
+)

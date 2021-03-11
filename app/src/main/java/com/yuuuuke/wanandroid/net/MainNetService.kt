@@ -2,7 +2,7 @@ package com.yuuuuke.wanandroid.net
 
 import com.yuuuuke.wanandroid.base.BaseBean
 import com.yuuuuke.wanandroid.model.BannerDataBean
-import com.yuuuuke.wanandroid.model.HotArticleBean
+import com.yuuuuke.wanandroid.model.ArticleBean
 import retrofit2.http.GET
 
 /**
@@ -15,6 +15,6 @@ interface MainNetService {
     @GET("https://www.wanandroid.com/banner/json")
     fun getBanner(): BaseBean<BannerDataBean>
 
-    @GET("https://www.wanandroid.com/tree/json")
-    fun getHotArticle(): BaseBean<List<HotArticleBean>>
+    @GET("https://www.wanandroid.com/article/top/json")
+    fun getHotArticle(): BaseBean<List<ArticleBean>>
 }
