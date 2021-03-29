@@ -19,7 +19,6 @@ class ArticleAdapter() :
     override fun convert(holder: ArticleViewHolder, item: ArticleBean) {
         holder.tvAuthor.text = item.author
         holder.tvContent.text = item.desc
-//        holder.tvTime
     }
 
     inner class ArticleViewHolder(view: View) : BaseViewHolder(view) {

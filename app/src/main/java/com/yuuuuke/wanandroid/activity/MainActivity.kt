@@ -2,14 +2,18 @@ package com.yuuuuke.wanandroid.activity
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.MenuItem
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProvider
+import com.google.android.material.bottomnavigation.BottomNavigationView
+import com.google.android.material.navigation.NavigationView
 import com.yuuuuke.wanandroid.R
 import com.yuuuuke.wanandroid.base.BaseActivity
 import com.yuuuuke.wanandroid.base.BaseViewModel
 import com.yuuuuke.wanandroid.databinding.ActivityMainBinding
 import com.yuuuuke.wanandroid.fragment.MainFragment
 import com.yuuuuke.wanandroid.viewmodel.MainViewModel
+import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : BaseActivity<MainViewModel, ActivityMainBinding>() {
 
@@ -30,7 +34,11 @@ class MainActivity : BaseActivity<MainViewModel, ActivityMainBinding>() {
     }
 
     override fun initView() {
+        bottom_nav_view.setOnNavigationItemSelectedListener {
+            true
+        }
         supportFragmentManager.beginTransaction()
             .add(R.id.view_content, mainFragment, MAIN_FRAGMENT)
     }
 }
+

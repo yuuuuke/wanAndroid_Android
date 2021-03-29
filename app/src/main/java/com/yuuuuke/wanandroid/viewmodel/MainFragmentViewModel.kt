@@ -9,4 +9,5 @@ import com.yuuuuke.wanandroid.base.BaseViewModel
  * @since 2021/3/10
  */
 class MainFragmentViewModel : BaseViewModel() {
+
 }

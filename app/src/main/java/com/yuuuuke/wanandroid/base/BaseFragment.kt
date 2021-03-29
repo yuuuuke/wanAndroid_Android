@@ -26,7 +26,7 @@ abstract class BaseFragment<V : ViewModel, K : ViewDataBinding> : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        vb = DataBindingUtil.inflate<K>(inflater, getLayoutId(), container, true)
+        vb = DataBindingUtil.inflate<K>(inflater, getLayoutId(), container, false)
         vb.lifecycleOwner = this
         initViewModel()
         vb.setVariable(BR.vm, vm)
