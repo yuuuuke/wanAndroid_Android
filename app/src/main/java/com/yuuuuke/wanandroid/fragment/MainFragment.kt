@@ -20,5 +20,4 @@ class MainFragment : BaseFragment<MainFragmentViewModel, FragmentMainBinding>() 
     override fun initViewModel() {
         vm = ViewModelProvider(this).get(MainFragmentViewModel::class.java)
     }
-
 }

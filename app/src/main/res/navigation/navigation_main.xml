@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto" android:id="@+id/navigation_main"
+    app:startDestination="@id/mainFragment">
+
+    <fragment
+        android:id="@+id/mainFragment"
+        android:name="com.yuuuuke.wanandroid.fragment.MainFragment"
+        android:label="MainFragment" />
+
+    <fragment
+        android:id="@+id/mineFragment"
+        android:name="com.yuuuuke.wanandroid.fragment.MineFragment"
+        android:label="MineFragment" />
+
+    <action
+        android:id="@+id/jump_to_mine"
+        app:destination="@id/mineFragment"/>
+
+    <action
+        android:id="@+id/jump_to_main"
+        app:destination="@id/mainFragment"/>
+
+</navigation>
