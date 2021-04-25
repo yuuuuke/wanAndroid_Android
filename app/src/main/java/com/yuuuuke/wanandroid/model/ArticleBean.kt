@@ -3,7 +3,7 @@ package com.yuuuuke.wanandroid.model
 import java.io.Serializable
 
 /**
- * description:置顶文章
+ * description:文章
  *
  * @author zwp
  * @since 2021/3/10
