@@ -9,6 +9,7 @@ import com.yuuuuke.wanandroid.model.ErrorBean
 import com.yuuuuke.wanandroid.net.BaseHttpHelper
 import com.yuuuuke.wanandroid.net.MainNetService
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import java.lang.Exception

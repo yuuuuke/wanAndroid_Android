@@ -32,9 +32,13 @@ abstract class BaseFragment<V : ViewModel, K : ViewDataBinding> : Fragment() {
         vb.lifecycleOwner = this
         initViewModel()
         vb.setVariable(BR.vm, vm)
+        initData(vb.root)
         return vb.root
     }
 
+    open fun initData(rootView:View){
+
+    }
 
     abstract fun getLayoutId(): Int
 

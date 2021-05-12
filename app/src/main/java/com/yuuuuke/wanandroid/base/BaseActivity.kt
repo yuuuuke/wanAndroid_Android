@@ -6,6 +6,7 @@ import androidx.databinding.ViewDataBinding
 import androidx.fragment.app.FragmentActivity
 import androidx.lifecycle.Observer
 import com.yuuuuke.wanandroid.BR
+import com.yuuuuke.wanandroid.model.DialogBean
 
 /**
  * description:Activity基类
@@ -45,7 +46,7 @@ abstract class BaseActivity<V : BaseViewModel, K : ViewDataBinding> : FragmentAc
      * 通用视图状态改变的观察者
      */
     private fun createCommonUiStateObserver() {
-        vm.commonUiChange.showDialog.observe(this, Observer<Boolean> {
+        vm.commonUiChange.showDialog.observe(this, Observer<DialogBean> {
             showCommonDialog(it)
         })
         vm.commonUiChange.showToast.observe(this, Observer {
@@ -53,7 +54,7 @@ abstract class BaseActivity<V : BaseViewModel, K : ViewDataBinding> : FragmentAc
         })
     }
 
-    open fun showCommonDialog(state: Boolean) {
+    open fun showCommonDialog(state: DialogBean) {
 
     }
 

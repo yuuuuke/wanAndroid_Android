@@ -19,8 +19,8 @@ interface MainNetService {
     fun getBanner(): BaseBean<BannerDataBean>
 
     @GET(Const.BASE_URL + "/article/top/json")
-    fun getHotArticle(): BaseBean<List<ArticleBean>>
+    fun getHotArticle(): BaseBean<ArrayList<ArticleBean>>
 
     @GET(Const.BASE_URL + "/article/list/{page}/json")
-    fun getMainArticlePage(@Path("page") page: Int): BaseBean<List<ArticleBean>>
+    fun getMainArticlePage(@Path("page") page: Int): BaseBean<ArrayList<ArticleBean>>
 }
