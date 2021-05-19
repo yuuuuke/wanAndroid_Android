@@ -19,6 +19,11 @@ class ArticleAdapter() :
     override fun convert(holder: ArticleViewHolder, item: ArticleBean) {
         holder.tvAuthor.text = item.author
         holder.tvContent.text = item.desc
+        holder.tvLabelTop.visibility = if(item.isTop) View.VISIBLE else View.GONE
+        holder.tvLabelNew.visibility = if(item.fresh) View.VISIBLE else View.GONE
+        holder.tvTime.text = ""
+        holder.tvType2.text = ""
+//        holder.tvType1.visibility = if(item.)
     }
 
     inner class ArticleViewHolder(view: View) : BaseViewHolder(view) {

@@ -40,7 +40,8 @@ data class ArticleBean(
     var userId: Int,
     var visible: Int,
     var zan: Int,
-    var tags: List<Tags>
+    var tags: List<Tags>,
+    var isTop:Boolean
 ) : Serializable {
 
     data class Tags(

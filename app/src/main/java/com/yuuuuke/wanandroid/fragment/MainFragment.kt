@@ -1,6 +1,7 @@
 package com.yuuuuke.wanandroid.fragment
 
 import android.view.View
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.yuuuuke.wanandroid.R
 import com.yuuuuke.wanandroid.base.BaseFragment
@@ -18,11 +19,21 @@ class MainFragment : BaseFragment<MainFragmentViewModel, FragmentMainBinding>() 
         return R.layout.fragment_main
     }
 
-    override fun initViewModel() {
-        vm = ViewModelProvider(this).get(MainFragmentViewModel::class.java)
+    override fun initViewModel():MainFragmentViewModel {
+        return ViewModelProvider(this).get(MainFragmentViewModel::class.java)
     }
 
     override fun initData(rootView: View) {
-        super.initData(rootView)
+        vm.articleData.observe(this, Observer {
+
+        })
+
+        vm.bannerData.observe(this, Observer {
+
+        })
+
+        vm.topArticle.observe(this, Observer {
+
+        })
     }
 }

@@ -14,8 +14,8 @@ import com.yuuuuke.wanandroid.viewmodel.MineFragmentViewModel
  */
 class MineFragment() : BaseFragment<MineFragmentViewModel, FragmentMineBinding>() {
 
-    override fun initViewModel() {
-        vm = ViewModelProvider(this).get(MineFragmentViewModel::class.java)
+    override fun initViewModel(): MineFragmentViewModel {
+        return ViewModelProvider(this).get(MineFragmentViewModel::class.java)
     }
 
     override fun getLayoutId(): Int {

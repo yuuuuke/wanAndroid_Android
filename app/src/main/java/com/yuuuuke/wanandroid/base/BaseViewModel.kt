@@ -1,18 +1,14 @@
 package com.yuuuuke.wanandroid.base
 
-import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.yuuuuke.wanandroid.model.DialogBean
 import com.yuuuuke.wanandroid.model.ErrorBean
-import com.yuuuuke.wanandroid.net.BaseHttpHelper
-import com.yuuuuke.wanandroid.net.MainNetService
+import com.yuuuuke.wanandroid.utils.DataCenter
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
-import java.lang.Exception
 
 /**
  * description:viewmodel基类
@@ -26,6 +22,10 @@ open class BaseViewModel : ViewModel() {
         UiChange()
     }
 
+    val jumpToLogin by lazy {
+        MutableLiveData<Boolean>()
+    }
+
     inner class UiChange {
 
         val showDialog by lazy {
@@ -37,7 +37,8 @@ open class BaseViewModel : ViewModel() {
         }
     }
 
-    protected fun <T:BaseBean<*>> requestData(
+    //有个登录验证
+    protected fun <T : BaseBean<*>> requestData(
         doFunction: () -> T,
         onSuccess: (data: T) -> Unit,
         onError: (error: ErrorBean) -> Unit
@@ -48,14 +49,41 @@ open class BaseViewModel : ViewModel() {
                     doFunction()
                 }
             }.onSuccess {
-                if(it.errorCode == 0){
+                if (it.errorCode == 0) {
                     onSuccess(it)
-                }else{
-                    onError(ErrorBean(it.errorCode,it.errorMsg,null))
+                } else {
+                    onError(ErrorBean(it.errorCode, it.errorMsg, null))
                 }
             }.onFailure {
                 onError(ErrorBean(error = it))
             }
+        }
+    }
+
+    protected fun <T : BaseBean<*>> requestDataAfterLogin(
+        doFunction: () -> T,
+        onSuccess: (data: T) -> Unit,
+        onError: (error: ErrorBean) -> Unit
+    ) {
+        DataCenter.user?.let {
+            viewModelScope.launch {
+                runCatching {
+                    withContext(Dispatchers.IO) {
+                        doFunction()
+                    }
+                }.onSuccess {
+                    if (it.errorCode == 0) {
+                        onSuccess(it)
+                    } else {
+                        onError(ErrorBean(it.errorCode, it.errorMsg, null))
+                    }
+                }.onFailure {
+                    onError(ErrorBean(error = it))
+                }
+            }
+        } ?: let {
+            //没有登录，跳到登录页面去
+            jumpToLogin.value = true
         }
     }
 }

@@ -17,12 +17,13 @@ import com.yuuuuke.wanandroid.model.DialogBean
 abstract class BaseActivity<V : BaseViewModel, K : ViewDataBinding> : FragmentActivity() {
 
     private lateinit var vb: K
-    lateinit var vm: V
+    val vm: V by lazy{
+        initViewModel()
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         vb = DataBindingUtil.setContentView(this, getLayoutId())
-        initViewModel()
         vb.lifecycleOwner = this
         vb.setVariable(BR.vm, vm)
         createCommonUiStateObserver()
@@ -32,7 +33,7 @@ abstract class BaseActivity<V : BaseViewModel, K : ViewDataBinding> : FragmentAc
 
     abstract fun getLayoutId(): Int
 
-    abstract fun initViewModel()
+    abstract fun initViewModel():V
 
     open fun initView() {
 
