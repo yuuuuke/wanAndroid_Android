@@ -14,6 +14,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.yuuuuke.wanandroid.BR
 import com.yuuuuke.wanandroid.activity.LoginActivity
+import com.yuuuuke.wanandroid.utils.KtLog
 import com.yuuuuke.wanandroid.viewmodel.MineFragmentViewModel
 
 /**
@@ -38,6 +39,7 @@ abstract class BaseFragment<V : BaseViewModel, K : ViewDataBinding> : Fragment()
         vb.lifecycleOwner = this
         vb.setVariable(BR.vm, vm)
         initData(vb.root)
+        KtLog("this++$this")
         return vb.root
     }
 

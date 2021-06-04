@@ -19,6 +19,7 @@ object BaseHttpHelper {
             .connectTimeout(60, TimeUnit.SECONDS)
             .readTimeout(60, TimeUnit.SECONDS)
             .writeTimeout(60, TimeUnit.SECONDS)
+            .addInterceptor(LoggingInterceptor())
             .build()
     }
 
@@ -34,5 +35,4 @@ object BaseHttpHelper {
     fun <T> create(serviceClass: Class<T>): T = retrofit.create(serviceClass)
 
     inline fun <reified T> create(): T = create(T::class.java)
-
 }

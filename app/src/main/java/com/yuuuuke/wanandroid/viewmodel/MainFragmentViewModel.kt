@@ -1,5 +1,6 @@
 package com.yuuuuke.wanandroid.viewmodel
 
+import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.yuuuuke.wanandroid.base.BaseViewModel
@@ -7,9 +8,8 @@ import com.yuuuuke.wanandroid.model.ArticleBean
 import com.yuuuuke.wanandroid.model.BannerDataBean
 import com.yuuuuke.wanandroid.net.BaseHttpHelper
 import com.yuuuuke.wanandroid.net.MainNetService
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
+import com.yuuuuke.wanandroid.utils.KtLog
+import kotlinx.coroutines.*
 
 /**
  * description:main fragment view model
@@ -19,15 +19,25 @@ import kotlinx.coroutines.withContext
  */
 class MainFragmentViewModel : BaseViewModel() {
 
-    lateinit var bannerData: MutableLiveData<BannerDataBean>
+    private val service: MainNetService by lazy {
+        BaseHttpHelper.create<MainNetService>()
+    }
 
-    lateinit var topArticle: MutableLiveData<ArrayList<ArticleBean>>
+    val bannerData: MutableLiveData<BannerDataBean> by lazy {
+        MutableLiveData<BannerDataBean>()
+    }
 
-    lateinit var articleData: MutableLiveData<ArrayList<ArticleBean>>
+    val topArticle: MutableLiveData<ArrayList<ArticleBean>> by lazy {
+        MutableLiveData<ArrayList<ArticleBean>>()
+    }
+
+    val articleData: MutableLiveData<ArrayList<ArticleBean>> by lazy {
+        MutableLiveData<ArrayList<ArticleBean>>()
+    }
 
     fun getBanner() {
         requestData({
-            BaseHttpHelper.create<MainNetService>().getBanner()
+            service.getBanner()
         }, {
             bannerData.value = it.data
         }, {
@@ -39,30 +49,28 @@ class MainFragmentViewModel : BaseViewModel() {
         })
     }
 
-    fun getTopArticle() {
-        requestData({
-            BaseHttpHelper.create<MainNetService>().getHotArticle()
-        }, {
-            topArticle.value = it.data
-        }, {
-            if (it.code == -1) {
-                commonUiChange.showToast.value = "数据请求失败，请稍后重试"
-            } else {
-                commonUiChange.showToast.value = it.message
-            }
-        })
-    }
-
     fun getAllArticle(page: Int) {
         requestData({
-            BaseHttpHelper.create<MainNetService>().getMainArticlePage(page)
-        }, {
             if (page == 0) {
-                //第一页
-                articleData.value = it.data
+                //第一页内容，要把热门文章加上
+                val deferred1 = async {
+                    service.getHotArticle()
+                }
+                val deferred2 = async {
+                    service.getMainArticlePage(page)
+                }
+                val hotData = deferred1.await()
+                val data = deferred2.await()
+                data.data.datas.addAll(0, hotData.data)
+                data
             } else {
-                articleData.value?.addAll(it.data)
+                //后面的内容
+                KtLog("加载更多")
+                service.getMainArticlePage(page)
             }
+        }, {
+            //第一页
+            articleData.value = it.data.datas
         }, {
             if (it.code == -1) {
                 commonUiChange.showToast.value = "数据请求失败，请稍后重试"

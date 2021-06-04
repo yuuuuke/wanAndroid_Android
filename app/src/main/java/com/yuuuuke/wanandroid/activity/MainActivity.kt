@@ -2,6 +2,7 @@ package com.yuuuuke.wanandroid.activity
 
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.findNavController
+import androidx.navigation.ui.NavigationUI
 import com.yuuuuke.wanandroid.R
 import com.yuuuuke.wanandroid.base.BaseActivity
 import com.yuuuuke.wanandroid.databinding.ActivityMainBinding
@@ -19,26 +20,7 @@ class MainActivity : BaseActivity<MainViewModel, ActivityMainBinding>() {
     }
 
     override fun initView() {
-        bottom_nav_view.setOnNavigationItemSelectedListener {
-            when (it.itemId) {
-                R.id.home_dest -> {
-                    findNavController(R.id.nav_host_fragment).navigate(R.id.jump_to_main)
-                }
-                R.id.project_dest -> {
-
-                }
-                R.id.square_dest -> {
-
-                }
-                R.id.wechat_dest -> {
-
-                }
-                R.id.mine_dest -> {
-                    findNavController(R.id.nav_host_fragment).navigate(R.id.jump_to_mine)
-                }
-            }
-            true
-        }
+        NavigationUI.setupWithNavController(bottom_nav_view,findNavController(R.id.nav_host_fragment))
     }
 }
 

@@ -1,5 +1,7 @@
 package com.yuuuuke.wanandroid.model
 
+import android.text.TextUtils
+import com.chad.library.adapter.base.entity.MultiItemEntity
 import java.io.Serializable
 
 /**
@@ -42,7 +44,17 @@ data class ArticleBean(
     var zan: Int,
     var tags: List<Tags>,
     var isTop:Boolean
-) : Serializable {
+) : MultiItemEntity,Serializable {
+
+    override var itemType: Int = 0
+
+    fun setType(){
+        itemType = if(TextUtils.isEmpty(envelopePic)){
+            0
+        }else{
+            1
+        }
+    }
 
     data class Tags(
         var name: String,

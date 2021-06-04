@@ -1,11 +1,14 @@
 package com.yuuuuke.wanandroid.base
 
+import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.yuuuuke.wanandroid.model.DialogBean
 import com.yuuuuke.wanandroid.model.ErrorBean
 import com.yuuuuke.wanandroid.utils.DataCenter
+import com.yuuuuke.wanandroid.utils.KtLog
+import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
@@ -37,9 +40,8 @@ open class BaseViewModel : ViewModel() {
         }
     }
 
-    //有个登录验证
     protected fun <T : BaseBean<*>> requestData(
-        doFunction: () -> T,
+        doFunction: suspend CoroutineScope.() -> T,
         onSuccess: (data: T) -> Unit,
         onError: (error: ErrorBean) -> Unit
     ) {
@@ -55,11 +57,13 @@ open class BaseViewModel : ViewModel() {
                     onError(ErrorBean(it.errorCode, it.errorMsg, null))
                 }
             }.onFailure {
+                KtLog("数据请求错误" + it.message)
                 onError(ErrorBean(error = it))
             }
         }
     }
 
+    //有个登录验证
     protected fun <T : BaseBean<*>> requestDataAfterLogin(
         doFunction: () -> T,
         onSuccess: (data: T) -> Unit,

@@ -1,5 +1,6 @@
 package com.yuuuuke.wanandroid.net
 
+import com.yuuuuke.wanandroid.utils.KtLog
 import kotlinx.coroutines.CompletableDeferred
 import kotlinx.coroutines.Deferred
 import retrofit2.*
