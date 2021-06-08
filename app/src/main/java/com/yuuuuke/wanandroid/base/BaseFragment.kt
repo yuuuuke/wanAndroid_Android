@@ -10,12 +10,9 @@ import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.ViewModelProvider
 import com.yuuuuke.wanandroid.BR
-import com.yuuuuke.wanandroid.activity.LoginActivity
+import com.yuuuuke.wanandroid.fragment.LoginFragment
 import com.yuuuuke.wanandroid.utils.KtLog
-import com.yuuuuke.wanandroid.viewmodel.MineFragmentViewModel
 
 /**
  * description:fragment基类
@@ -39,7 +36,6 @@ abstract class BaseFragment<V : BaseViewModel, K : ViewDataBinding> : Fragment()
         vb.lifecycleOwner = this
         vb.setVariable(BR.vm, vm)
         initData(vb.root)
-        KtLog("this++$this")
         return vb.root
     }
 
@@ -53,7 +49,7 @@ abstract class BaseFragment<V : BaseViewModel, K : ViewDataBinding> : Fragment()
         })
 
         vm.jumpToLogin.observe(this.viewLifecycleOwner, Observer {
-            activity?.startActivity(Intent(activity, LoginActivity::class.java))
+            activity?.startActivity(Intent(activity, LoginFragment::class.java))
         })
     }
 

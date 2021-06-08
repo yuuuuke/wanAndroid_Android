@@ -7,7 +7,7 @@
         android:title="@string/main_tab"/>
 
     <item
-        android:id="@+id/searchFragment"
+        android:id="@+id/projectFragment"
         android:icon="@drawable/menu_project"
         android:title="@string/project_tab"/>
 

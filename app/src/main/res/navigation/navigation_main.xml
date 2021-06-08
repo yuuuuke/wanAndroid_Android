@@ -2,54 +2,31 @@
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/navigation_main"
-    app:startDestination="@id/mainFragment">
+    app:startDestination="@id/homeFragment">
 
     <fragment
-        android:id="@+id/mainFragment"
-        android:name="com.yuuuuke.wanandroid.fragment.MainFragment"
-        android:label="MainFragment">
+        android:id="@+id/homeFragment"
+        android:name="com.yuuuuke.wanandroid.fragment.HomeFragment"
+        android:label="HomeFragment">
 
         <action
-            android:id="@+id/main_to_mine"
-            app:destination="@+id/mineFragment" />
+            android:id="@+id/home_to_searchFragment"
+            app:destination="@id/searchFragment"/>
 
         <action
-            android:id="@+id/main_to_search"
-            app:destination="@+id/searchFragment" />
-
-        <action
-            android:id="@+id/main_to_square"
-            app:destination="@+id/squareFragment" />
-
-        <action
-            android:id="@+id/main_to_wechat_public"
-            app:destination="@+id/weChatFragment" />
+            android:id="@+id/home_to_loginFragment"
+            app:destination="@id/loginFragment"/>
 
     </fragment>
 
     <fragment
-        android:id="@+id/mineFragment"
-        android:name="com.yuuuuke.wanandroid.fragment.MineFragment"
-        android:label="MineFragment" />
-
-    <fragment
-        android:id="@+id/projectFragment"
-        android:name="com.yuuuuke.wanandroid.fragment.ProjectFragment"
-        android:label="ProjectFragment" />
-
-    <fragment
         android:id="@+id/searchFragment"
         android:name="com.yuuuuke.wanandroid.fragment.SearchFragment"
-        android:label="SearchFragment" />
+        android:label="SearchFragment"/>
 
     <fragment
-        android:id="@+id/squareFragment"
-        android:name="com.yuuuuke.wanandroid.fragment.SquareFragment"
-        android:label="SquareFragment" />
-
-    <fragment
-        android:id="@+id/weChatFragment"
-        android:name="com.yuuuuke.wanandroid.fragment.WeChatPublicFragment"
-        android:label="WeChatPublicFragment" />
+        android:id="@+id/loginFragment"
+        android:name="com.yuuuuke.wanandroid.fragment.LoginFragment"
+        android:label="LoginFragment"/>
 
 </navigation>
