@@ -3,16 +3,14 @@ package com.yuuuuke.wanandroid.fragment
 import android.view.View
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
-import androidx.navigation.fragment.findNavController
-import androidx.recyclerview.widget.LinearLayoutManager
-import com.chad.library.adapter.base.loadmore.LoadMoreStatus
-import com.chad.library.adapter.base.module.BaseLoadMoreModule
 import com.yuuuuke.wanandroid.R
 import com.yuuuuke.wanandroid.adapter.ArticleAdapter
 import com.yuuuuke.wanandroid.base.BaseFragment
 import com.yuuuuke.wanandroid.databinding.FragmentMainBinding
 import com.yuuuuke.wanandroid.utils.DataCenter
 import com.yuuuuke.wanandroid.utils.KtLog
+import com.yuuuuke.wanandroid.utils.nav
+import com.yuuuuke.wanandroid.utils.navAfterLogin
 import com.yuuuuke.wanandroid.viewmodel.MainFragmentViewModel
 import kotlinx.android.synthetic.main.fragment_main.view.*
 
@@ -37,17 +35,17 @@ class MainFragment : BaseFragment<MainFragmentViewModel, FragmentMainBinding>() 
 
     override fun initData(rootView: View) {
         adapter = ArticleAdapter(null)
-
         adapter.loadMoreModule.setOnLoadMoreListener {
-            KtLog("加载更多")
             vm.getAllArticle(++page)
         }
 
-        rootView.rv_main.layoutManager = LinearLayoutManager(activity)
-        rootView.rv_main.adapter = adapter
+        rootView.rv_list.adapter = adapter
+        rootView.refresh_layout.setOnRefreshListener {
+            page = 0
+            vm.getAllArticle(page)
+        }
 
         vm.articleData.observe(this, Observer {
-            KtLog("新数据加载完成")
             for (bean in it) {
                 bean.setType()
             }
@@ -59,8 +57,8 @@ class MainFragment : BaseFragment<MainFragmentViewModel, FragmentMainBinding>() 
             }
             adapter.notifyDataSetChanged()
             adapter.loadMoreModule.loadMoreComplete()
+            rootView.refresh_layout.isRefreshing = false
         })
-
         vm.bannerData.observe(this, Observer {
 
         })
@@ -68,13 +66,7 @@ class MainFragment : BaseFragment<MainFragmentViewModel, FragmentMainBinding>() 
         vm.getAllArticle(page)
 
         rootView.iv_search.setOnClickListener {
-            DataCenter.user?.let {
-                //登录了
-                findNavController().navigate(R.id.home_to_searchFragment)
-            } ?: let {
-                //没登录
-                findNavController().navigate(R.id.home_to_loginFragment)
-            }
+            navAfterLogin(R.id.searchFragment)
         }
     }
 }

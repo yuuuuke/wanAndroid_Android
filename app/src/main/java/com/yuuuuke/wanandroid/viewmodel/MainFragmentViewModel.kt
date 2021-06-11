@@ -69,7 +69,6 @@ class MainFragmentViewModel : BaseViewModel() {
                 service.getMainArticlePage(page)
             }
         }, {
-            //第一页
             articleData.value = it.data.datas
         }, {
             if (it.code == -1) {

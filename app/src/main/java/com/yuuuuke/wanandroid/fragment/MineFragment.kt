@@ -12,7 +12,7 @@ import com.yuuuuke.wanandroid.viewmodel.MineFragmentViewModel
  * @author zwp
  * @since 2021/3/29
  */
-class MineFragment() : BaseFragment<MineFragmentViewModel, FragmentMineBinding>() {
+class MineFragment : BaseFragment<MineFragmentViewModel, FragmentMineBinding>() {
 
     override fun initViewModel(): MineFragmentViewModel {
         return ViewModelProvider(this).get(MineFragmentViewModel::class.java)
@@ -20,5 +20,25 @@ class MineFragment() : BaseFragment<MineFragmentViewModel, FragmentMineBinding>(
 
     override fun getLayoutId(): Int {
         return R.layout.fragment_mine
+    }
+
+
+    inner class ProxyClick {
+
+        fun integral() {
+
+        }
+
+        fun collect(){
+
+        }
+
+        fun myArticle(){
+
+        }
+
+        fun aboutMe(){
+
+        }
     }
 }

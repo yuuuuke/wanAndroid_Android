@@ -11,8 +11,10 @@ import androidx.databinding.ViewDataBinding
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import com.yuuuuke.wanandroid.BR
+import com.yuuuuke.wanandroid.R
 import com.yuuuuke.wanandroid.fragment.LoginFragment
 import com.yuuuuke.wanandroid.utils.KtLog
+import com.yuuuuke.wanandroid.utils.nav
 
 /**
  * description:fragment基类
@@ -49,7 +51,7 @@ abstract class BaseFragment<V : BaseViewModel, K : ViewDataBinding> : Fragment()
         })
 
         vm.jumpToLogin.observe(this.viewLifecycleOwner, Observer {
-            activity?.startActivity(Intent(activity, LoginFragment::class.java))
+            nav(R.id.loginFragment)
         })
     }
 
