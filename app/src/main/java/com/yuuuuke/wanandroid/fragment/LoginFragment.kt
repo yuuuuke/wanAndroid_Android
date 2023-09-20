@@ -2,7 +2,7 @@ package com.yuuuuke.wanandroid.fragment
 
 import androidx.lifecycle.ViewModelProvider
 import com.yuuuuke.wanandroid.R
-import com.yuuuuke.wanandroid.base.BaseFragment
+import com.yuuuuke.wanandroid.base.BaseVBFragment
 import com.yuuuuke.wanandroid.databinding.FragmentLoginBinding
 import com.yuuuuke.wanandroid.viewmodel.LoginViewModel
 
@@ -12,7 +12,7 @@ import com.yuuuuke.wanandroid.viewmodel.LoginViewModel
  * @author zwp
  * @since 2021/5/18
  */
-class LoginFragment : BaseFragment<LoginViewModel, FragmentLoginBinding>() {
+class LoginFragment : BaseVBFragment<LoginViewModel, FragmentLoginBinding>() {
     override fun getLayoutId(): Int {
         return R.layout.fragment_login
     }

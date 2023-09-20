@@ -10,6 +10,9 @@ import com.yuuuuke.wanandroid.utils.DataCenter
 import com.yuuuuke.wanandroid.utils.KtLog
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.MutableSharedFlow
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
@@ -26,7 +29,7 @@ open class BaseViewModel : ViewModel() {
     }
 
     val jumpToLogin by lazy {
-        MutableLiveData<Boolean>()
+        MutableSharedFlow<Boolean>()
     }
 
     inner class UiChange {
@@ -87,7 +90,9 @@ open class BaseViewModel : ViewModel() {
             }
         } ?: let {
             //没有登录，跳到登录页面去
-            jumpToLogin.value = true
+            viewModelScope.launch {
+                jumpToLogin.emit(true)
+            }
         }
     }
 }

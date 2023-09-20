@@ -2,7 +2,7 @@ package com.yuuuuke.wanandroid.fragment
 
 import androidx.lifecycle.ViewModelProvider
 import com.yuuuuke.wanandroid.R
-import com.yuuuuke.wanandroid.base.BaseFragment
+import com.yuuuuke.wanandroid.base.BaseVBFragment
 import com.yuuuuke.wanandroid.databinding.FragmentWechatPublicBinding
 import com.yuuuuke.wanandroid.viewmodel.WeChatPublicFragmentViewModel
 
@@ -13,7 +13,7 @@ import com.yuuuuke.wanandroid.viewmodel.WeChatPublicFragmentViewModel
  * @since 2021/3/29
  */
 class WeChatPublicFragment :
-    BaseFragment<WeChatPublicFragmentViewModel, FragmentWechatPublicBinding>() {
+    BaseVBFragment<WeChatPublicFragmentViewModel, FragmentWechatPublicBinding>() {
     override fun initViewModel(): WeChatPublicFragmentViewModel {
         return ViewModelProvider(this).get(WeChatPublicFragmentViewModel::class.java)
     }

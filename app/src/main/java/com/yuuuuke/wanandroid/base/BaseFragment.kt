@@ -1,61 +1,40 @@
 package com.yuuuuke.wanandroid.base
 
-import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
-import androidx.databinding.DataBindingUtil
-import androidx.databinding.ViewDataBinding
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.Observer
-import com.yuuuuke.wanandroid.BR
-import com.yuuuuke.wanandroid.R
-import com.yuuuuke.wanandroid.fragment.LoginFragment
-import com.yuuuuke.wanandroid.utils.KtLog
-import com.yuuuuke.wanandroid.utils.nav
+import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.lifecycleScope
+import kotlinx.coroutines.launch
+import java.lang.reflect.ParameterizedType
 
-/**
- * description:fragment基类
- *
- * @author zwp
- * @since 2021/3/10
- */
-abstract class BaseFragment<V : BaseViewModel, K : ViewDataBinding> : Fragment() {
+abstract class BaseFragment<T : BaseViewModel> : Fragment() {
 
-    private lateinit var vb: K
-    val vm: V by lazy {
-        initViewModel()
-    }
+    protected lateinit var vm: T
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        vb = DataBindingUtil.inflate<K>(inflater, getLayoutId(), container, false)
-        vb.lifecycleOwner = this
-        vb.setVariable(BR.vm, vm)
-        initData(vb.root)
-        return vb.root
-    }
-
-    open fun initData(rootView: View) {
-        vm.commonUiChange.showToast.observe(this.viewLifecycleOwner, Observer {
-            Toast.makeText(activity, it, Toast.LENGTH_SHORT).show()
-        })
-
-        vm.commonUiChange.showDialog.observe(this.viewLifecycleOwner, Observer {
-
-        })
-
-        vm.jumpToLogin.observe(this.viewLifecycleOwner, Observer {
-            nav(R.id.loginFragment)
-        })
+        vm = initViewModel()
+        return inflater.inflate(getLayoutId(), container, false)
     }
 
     abstract fun getLayoutId(): Int
 
-    abstract fun initViewModel(): V
+    private fun initViewModel(): T {
+        return ViewModelProvider(this)[(this.javaClass.genericSuperclass as ParameterizedType).actualTypeArguments[0] as Class<T>]
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        initData()
+    }
+
+    open fun initData() {
+
+    }
 }

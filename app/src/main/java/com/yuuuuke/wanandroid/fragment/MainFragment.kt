@@ -5,11 +5,8 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.yuuuuke.wanandroid.R
 import com.yuuuuke.wanandroid.adapter.ArticleAdapter
-import com.yuuuuke.wanandroid.base.BaseFragment
+import com.yuuuuke.wanandroid.base.BaseVBFragment
 import com.yuuuuke.wanandroid.databinding.FragmentMainBinding
-import com.yuuuuke.wanandroid.utils.DataCenter
-import com.yuuuuke.wanandroid.utils.KtLog
-import com.yuuuuke.wanandroid.utils.nav
 import com.yuuuuke.wanandroid.utils.navAfterLogin
 import com.yuuuuke.wanandroid.viewmodel.MainFragmentViewModel
 import kotlinx.android.synthetic.main.fragment_main.view.*
@@ -20,7 +17,7 @@ import kotlinx.android.synthetic.main.fragment_main.view.*
  * @author zwp
  * @since 2021/3/10
  */
-class MainFragment : BaseFragment<MainFragmentViewModel, FragmentMainBinding>() {
+class MainFragment : BaseVBFragment<MainFragmentViewModel, FragmentMainBinding>() {
 
     private lateinit var adapter: ArticleAdapter
     private var page = 0
@@ -49,13 +46,15 @@ class MainFragment : BaseFragment<MainFragmentViewModel, FragmentMainBinding>() 
             for (bean in it) {
                 bean.setType()
             }
+            var start = 0
             if (page == 0) {
                 adapter.data.clear()
                 adapter.data.addAll(it)
             } else {
+                start = adapter.data.size
                 adapter.data.addAll(it)
             }
-            adapter.notifyDataSetChanged()
+            adapter.notifyItemRangeChanged(start,it.size)
             adapter.loadMoreModule.loadMoreComplete()
             rootView.refresh_layout.isRefreshing = false
         })
