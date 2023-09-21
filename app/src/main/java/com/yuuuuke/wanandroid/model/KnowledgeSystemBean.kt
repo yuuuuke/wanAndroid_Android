@@ -14,5 +14,16 @@ data class KnowledgeSystemBean(
     var parentChapterId: Int,
     var userControlSetTop: Boolean,
     var visible: Int,
-    var children: List<ArticleBean>
+    var children: List<KnowledgeChildBean>
+)
+
+data class KnowledgeChildBean(
+    var courseId: Int,
+    var id: Int,
+    var name: String,
+    var order: Int,
+    var parentChapterId: Int,
+    var type: Int,
+    var userControlSetTop: Boolean,
+    var visible: Int
 )

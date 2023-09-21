@@ -1,6 +1,7 @@
 package com.yuuuuke.wanandroid.net
 
 import com.yuuuuke.wanandroid.base.BaseBean
+import com.yuuuuke.wanandroid.model.KnowledgeSystemBean
 import com.yuuuuke.wanandroid.model.ProjectDetailListBean
 import com.yuuuuke.wanandroid.model.ProjectTreeBean
 import retrofit2.http.FormUrlEncoded
@@ -20,4 +21,10 @@ interface ProjectNetService {
         @Path("page") page: Int,
         @Query("cid") cid: Int
     ): BaseBean<ProjectDetailListBean>
+
+    /**
+     * 获取知识体系
+     */
+    @GET("/tree/json")
+    suspend fun getKnowledgeTree(): BaseBean<ArrayList<KnowledgeSystemBean>>
 }
