@@ -27,4 +27,13 @@ interface ProjectNetService {
      */
     @GET("/tree/json")
     suspend fun getKnowledgeTree(): BaseBean<ArrayList<KnowledgeSystemBean>>
+
+    /**
+     * 获取体系下的文章
+     */
+    @GET("/article/list/{page}/json")
+    suspend fun getKnowledgeDetail(
+        @Path("page") page: Int,
+        @Query("cid") cid: Int
+    ):BaseBean<ProjectDetailListBean>
 }

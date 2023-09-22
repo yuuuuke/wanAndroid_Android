@@ -1,5 +1,7 @@
 package com.yuuuuke.wanandroid.adapter
 
+import android.os.Bundle
+import androidx.navigation.findNavController
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
 import com.chad.library.adapter.base.BaseMultiItemQuickAdapter
@@ -107,6 +109,13 @@ class ArticleAdapter(list:MutableList<ArticleBean>?) :
             holder.getView<CollectView>(R.id.item_project_collect).onClick = {
                 collectAction(item,it,holder.adapterPosition)
             }
+        }
+
+        holder.itemView.setOnClickListener {
+            val bundle = Bundle()
+            bundle.putString("TITLE", item.title)
+            bundle.putString("URL", item.link)
+            holder.itemView.findNavController().navigate(R.id.home_to_webView,bundle)
         }
     }
 }

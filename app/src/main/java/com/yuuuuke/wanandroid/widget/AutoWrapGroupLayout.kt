@@ -2,6 +2,7 @@ package com.yuuuuke.wanandroid.widget
 
 import android.content.Context
 import android.graphics.Color
+import android.os.Bundle
 import android.util.AttributeSet
 import android.util.Log
 import android.view.Gravity
@@ -15,6 +16,7 @@ import androidx.core.view.marginBottom
 import androidx.core.view.marginLeft
 import androidx.core.view.marginRight
 import androidx.core.view.marginTop
+import androidx.navigation.findNavController
 import com.yuuuuke.wanandroid.R
 import com.yuuuuke.wanandroid.model.KnowledgeChildBean
 
@@ -37,9 +39,15 @@ class AutoWrapGroupLayout : ViewGroup {
             tv.gravity = Gravity.CENTER
             tv.background =
                 ResourcesCompat.getDrawable(resources, R.drawable.bg_knowledge_item, null)
-            tv.layoutParams = MarginLayoutParams(WRAP_CONTENT,WRAP_CONTENT).also {
+            tv.layoutParams = MarginLayoutParams(WRAP_CONTENT, WRAP_CONTENT).also {
                 it.leftMargin = 15
                 it.topMargin = 8
+            }
+            tv.setOnClickListener {
+                val bundle = Bundle()
+                bundle.putInt("C_ID", item.id)
+                bundle.putString("TITLE", item.name)
+                findNavController().navigate(R.id.home_to_knowledgeDetailFragment,bundle)
             }
             addView(tv)
         }

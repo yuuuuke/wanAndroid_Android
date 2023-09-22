@@ -17,6 +17,14 @@
             android:id="@+id/home_to_loginFragment"
             app:destination="@id/loginFragment"/>
 
+        <action
+            android:id="@+id/home_to_knowledgeDetailFragment"
+            app:destination="@id/knowledgeDetailFragment"/>
+
+        <action
+            android:id="@+id/home_to_webView"
+            app:destination="@id/webViewFragment"/>
+
     </fragment>
 
     <fragment
@@ -28,5 +36,21 @@
         android:id="@+id/loginFragment"
         android:name="com.yuuuuke.wanandroid.fragment.LoginFragment"
         android:label="LoginFragment"/>
+
+    <fragment
+        android:id="@+id/knowledgeDetailFragment"
+        android:name="com.yuuuuke.wanandroid.fragment.KnowledgeDetailFragment"
+        android:label="KnowledgeDetailFragment">
+
+        <action
+            android:id="@+id/knowledgeDetail_to_webView"
+            app:destination="@id/webViewFragment"/>
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/webViewFragment"
+        android:name="com.yuuuuke.wanandroid.fragment.WebViewFragment"
+        android:label="WebViewFragment"/>
 
 </navigation>

@@ -25,11 +25,10 @@ class ProjDetailViewModel : BaseViewModel() {
         requestData({
             service.getProjectDetail(mPageIndex, id)
         }, {
-            Log.v("zwp","${it.data.pageCount}//${it.data.curPage} ${it.data.size} ${it.data.total} ${it.data.over}")
+            listDataLiveData.postValue(it.data.datas)
             if(it.data.over){
                 loadEndLiveData.postValue(true)
             }else{
-                listDataLiveData.postValue(it.data.datas)
                 mPageIndex++
             }
         }, {
