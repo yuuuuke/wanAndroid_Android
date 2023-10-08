@@ -45,14 +45,12 @@ open class BaseViewModel : ViewModel() {
 
     protected fun <T : BaseBean<*>> requestData(
         doFunction: suspend CoroutineScope.() -> T,
-        onSuccess: (data: T) -> Unit,
-        onError: (error: ErrorBean) -> Unit
+        onSuccess: suspend (data: T) -> Unit,
+        onError: suspend (error: ErrorBean) -> Unit
     ) {
         viewModelScope.launch {
             runCatching {
-                withContext(Dispatchers.IO) {
-                    doFunction()
-                }
+                doFunction()
             }.onSuccess {
                 if (it.errorCode == 0) {
                     onSuccess(it)

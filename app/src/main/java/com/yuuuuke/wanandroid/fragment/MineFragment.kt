@@ -29,14 +29,6 @@ class MineFragment : BaseVBFragment<MineFragmentViewModel, FragmentMineBinding>(
 
         }
 
-        fun collect(){
-
-        }
-
-        fun myArticle(){
-
-        }
-
         fun aboutMe(){
 
         }

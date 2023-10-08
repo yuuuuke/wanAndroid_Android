@@ -20,7 +20,7 @@ class HomeFragment : Fragment() {
     private val mainFragment by lazy { MainFragment() }
     private val projectFragment by lazy { ProjectFragment() }
     private val squareFragment by lazy { SquareFragment() }
-    private val weChatPublicFragment by lazy { WeChatPublicFragment() }
+    private val wxArticleFragment by lazy { WxArticleFragment() }
     private val mineFragment by lazy { MineFragment() }
 
     private var currentFragment: Fragment? = null
@@ -53,7 +53,7 @@ class HomeFragment : Fragment() {
                     showFragment(squareFragment)
                 }
                 R.id.weChatFragment -> {
-                    showFragment(weChatPublicFragment)
+                    showFragment(wxArticleFragment)
                 }
                 R.id.mineFragment -> {
                     showFragment(mineFragment)

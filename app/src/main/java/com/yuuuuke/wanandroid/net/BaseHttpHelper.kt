@@ -20,6 +20,7 @@ object BaseHttpHelper {
             .readTimeout(60, TimeUnit.SECONDS)
             .writeTimeout(60, TimeUnit.SECONDS)
             .addInterceptor(LoggingInterceptor())
+            .addInterceptor(CommonParamsInterceptor())
             .build()
     }
 
