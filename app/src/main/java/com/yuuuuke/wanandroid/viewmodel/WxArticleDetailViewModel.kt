@@ -1,5 +1,6 @@
 package com.yuuuuke.wanandroid.viewmodel
 
+import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.yuuuuke.wanandroid.base.BaseViewModel
@@ -11,7 +12,7 @@ import kotlinx.coroutines.launch
 
 class WxArticleDetailViewModel : BaseViewModel() {
 
-    private val state = UiState()
+    private var state = UiState()
     private var mPage = 0
     private var mSearchPage = 0
     private val service: WxArticleService = BaseHttpHelper.create()
@@ -31,8 +32,16 @@ class WxArticleDetailViewModel : BaseViewModel() {
         requestData({
             service.getWxArticle(id, mPage)
         }, {
-            state.detailData.addAll(it.data.datas)
-            mPage++
+            val list = ArrayList<ArticleBean>()
+            list.addAll(state.detailData)
+            if (it.data.over) {
+                // 结束了
+                state = state.copy(detailData = list.apply { addAll(it.data.datas) },allDataLoadFinished = true)
+            } else {
+                state = state.copy(detailData = list.apply { addAll(it.data.datas) },allDataLoadFinished = false)
+                mPage++
+            }
+
             stateFlow.emit(state)
         }, {
 
@@ -43,8 +52,15 @@ class WxArticleDetailViewModel : BaseViewModel() {
         requestData({
             service.searchArticle(id, mSearchPage, key)
         }, {
-            state.searchResultData.addAll(it.data.datas)
-            mSearchPage++
+            val list = ArrayList<ArticleBean>()
+            list.addAll(state.searchResultData)
+            if (it.data.over) {
+                // 结束了
+                state = state.copy(searchResultData = list.apply { addAll(it.data.datas) }, searchDataLoadFinish = true)
+            } else {
+                state = state.copy(searchResultData = list.apply { addAll(it.data.datas) },searchDataLoadFinish = false)
+                mSearchPage++
+            }
             stateFlow.emit(state)
         }, {
 
@@ -52,14 +68,16 @@ class WxArticleDetailViewModel : BaseViewModel() {
     }
 
     private fun changeMode(b: Boolean) {
-        state.searchMode = b
+        state = state.copy(searchMode = b)
         viewModelScope.launch {
             stateFlow.emit(state)
         }
     }
 
     private fun clearResult() {
-        state.searchResultData.clear()
+        state = state.copy(
+            searchDataLoadFinish = false,
+            searchResultData = ArrayList())
         mSearchPage = 0
         viewModelScope.launch {
             stateFlow.emit(state)
@@ -68,9 +86,11 @@ class WxArticleDetailViewModel : BaseViewModel() {
 }
 
 data class UiState(
-    var searchMode: Boolean = false,
+    val allDataLoadFinished: Boolean = false,
+    val searchDataLoadFinish: Boolean = false,
+    val searchMode: Boolean = false,
     val detailData: ArrayList<ArticleBean> = ArrayList(),
-    val searchResultData: ArrayList<ArticleBean> = ArrayList()
+    val searchResultData: ArrayList<ArticleBean> = ArrayList(),
 )
 
 sealed class DetailAction {

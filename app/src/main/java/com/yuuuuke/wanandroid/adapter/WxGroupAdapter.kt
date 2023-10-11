@@ -43,8 +43,8 @@ class WxGroupAdapter : Adapter<WxGroupAdapter.MyHolder>() {
             text.setOnClickListener {
                 val bundle = Bundle()
                 bundle.putInt("ID", data.id)
-                bundle.putInt("NAME", data.id)
-//                it.findNavController().navigate(R.id.action_,bundle)
+                bundle.putString("NAME", data.name)
+                it.findNavController().navigate(R.id.action_homeFragment_to_wxArticleDetailFragment,bundle)
             }
         }
     }
