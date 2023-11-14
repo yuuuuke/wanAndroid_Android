@@ -1,6 +1,7 @@
 package com.yuuuuke.wanandroid.base
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -24,7 +25,7 @@ import kotlinx.coroutines.launch
  */
 abstract class BaseVBFragment<V : BaseViewModel, K : ViewDataBinding> : Fragment() {
 
-    private lateinit var vb: K
+    lateinit var vb: K
     val vm: V by lazy {
         initViewModel()
     }
@@ -43,6 +44,7 @@ abstract class BaseVBFragment<V : BaseViewModel, K : ViewDataBinding> : Fragment
 
     open fun initData(rootView: View) {
         vm.commonUiChange.showToast.observe(this.viewLifecycleOwner, Observer {
+            Log.v("zwp",it)
             Toast.makeText(activity, it, Toast.LENGTH_SHORT).show()
         })
 

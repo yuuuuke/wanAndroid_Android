@@ -17,7 +17,6 @@ class LoggingInterceptor : Interceptor {
         val request = chain.request()
         KtLog("请求的接口为：" + request.url().encodedPath())
 
-        val response = chain.proceed(request)
-        return response
+        return chain.proceed(request)
     }
 }

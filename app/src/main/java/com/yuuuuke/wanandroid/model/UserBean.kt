@@ -7,9 +7,7 @@ package com.yuuuuke.wanandroid.model
  * @since 2021/5/18
  */
 data class UserBean(var admin:Boolean,
-                    var chapterTops:Int,
                     var coinCount:Int,
-                    var collectIds:Int,
                     var email:String,
                     var icon:String,
                     var id:Int,

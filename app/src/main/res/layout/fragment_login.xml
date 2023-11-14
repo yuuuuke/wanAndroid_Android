@@ -26,11 +26,11 @@
                 android:layout_height="48dp"
                 android:layout_marginLeft="10dp"
                 android:padding="8dp"
-                android:tint="#FFFFFF"
                 android:src="@drawable/ic_back"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toTopOf="parent"
+                app:tint="#FFFFFF" />
 
             <TextView
                 android:id="@+id/tv_title"

@@ -63,9 +63,5 @@ class MainFragment : BaseVBFragment<MainFragmentViewModel, FragmentMainBinding>(
         })
 
         vm.getAllArticle(page)
-
-        rootView.iv_search.setOnClickListener {
-            navAfterLogin(R.id.searchFragment)
-        }
     }
 }

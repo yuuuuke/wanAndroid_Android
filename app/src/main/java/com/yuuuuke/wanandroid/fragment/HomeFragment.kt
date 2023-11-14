@@ -1,6 +1,7 @@
 package com.yuuuuke.wanandroid.fragment
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -39,9 +40,6 @@ class HomeFragment : Fragment() {
         KtLog("首页初始化")
         showFragment(mainFragment)
         view.bottom_nav_view.setOnNavigationItemSelectedListener {
-            currentFragment?.let { fragment ->
-                parentFragmentManager.beginTransaction().hide(fragment).commit()
-            }
             when (it.itemId) {
                 R.id.mainFragment -> {
                     showFragment(mainFragment)
@@ -64,12 +62,16 @@ class HomeFragment : Fragment() {
     }
 
     private fun showFragment(fragment:Fragment) {
-        currentFragment = fragment
-        if (fragment.isAdded) {
-            parentFragmentManager.beginTransaction().show(fragment).commit()
-        } else {
-            parentFragmentManager.beginTransaction()
-                .add(R.id.fragment_container, fragment).commit()
+        val ft = childFragmentManager.beginTransaction()
+        currentFragment?.let { lastFragment ->
+            ft.hide(lastFragment)
         }
+        if (fragment.isAdded) {
+            ft.show(fragment)
+        } else {
+            ft.add(R.id.fragment_container, fragment)
+        }
+        ft.commitNow()
+        currentFragment = fragment
     }
 }

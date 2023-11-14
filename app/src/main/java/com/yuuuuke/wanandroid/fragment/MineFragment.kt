@@ -1,5 +1,7 @@
 package com.yuuuuke.wanandroid.fragment
 
+import android.view.View
+import android.widget.Toast
 import androidx.lifecycle.ViewModelProvider
 import com.yuuuuke.wanandroid.R
 import com.yuuuuke.wanandroid.base.BaseVBFragment
@@ -22,6 +24,11 @@ class MineFragment : BaseVBFragment<MineFragmentViewModel, FragmentMineBinding>(
         return R.layout.fragment_mine
     }
 
+    override fun initData(rootView: View) {
+        super.initData(rootView)
+        vb.click = ProxyClick()
+    }
+
 
     inner class ProxyClick {
 
@@ -30,7 +37,7 @@ class MineFragment : BaseVBFragment<MineFragmentViewModel, FragmentMineBinding>(
         }
 
         fun aboutMe(){
-
+            Toast.makeText(context," it's me !",Toast.LENGTH_LONG).show()
         }
     }
 }

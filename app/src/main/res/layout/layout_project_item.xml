@@ -157,6 +157,7 @@
                 tools:text="分类·项目" />
 
             <com.yuuuuke.wanandroid.widget.CollectView
+                android:visibility="gone"
                 android:id="@+id/item_project_collect"
                 android:layout_width="24dp"
                 android:layout_height="24dp"
